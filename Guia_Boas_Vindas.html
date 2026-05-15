@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refúgio do Imperador - Guia de Boas-Vindas</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            max-height: 896px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        @media (min-height: 850px) and (min-width: 450px) {
+            .app-container {
+                height: 850px;
+                border-radius: 40px;
+                border: 8px solid #1e293b;
+            }
+        }
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+        .page.hidden-left {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        .page.hidden-right {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        /* Page 1: Cover */
+        .cover-page {
+            background: #ffffff;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+        .cover-page h1 {
+            font-size: 2.8rem;
+            color: #000000;
+            margin-bottom: 50px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        .btn-start {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: #0f172a;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-start:hover, .btn-start:active {
+            background: #1e293b;
+            transform: scale(0.98);
+        }
+
+        /* Page 2: Guide */
+        .guide-page {
+            background: linear-gradient(145deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            padding: 50px 25px;
+        }
+        /* Background pattern/overlay */
+        .guide-page::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 60%);
+            z-index: 0;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: left;
+            margin-bottom: 50px;
+            margin-top: 20px;
+        }
+        .header h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px 15px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .grid-item:active {
+            transform: scale(0.92);
+        }
+        .icon-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .icon-circle i {
+            font-size: 1.6rem;
+            color: #ffffff;
+        }
+        .grid-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #e2e8f0;
+        }
+
+        /* Modal */
+        .modal {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            padding: 20px;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #1e293b;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
+            color: #0f172a;
+        }
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            color: #1e3a8a;
+        }
+        .modal-icon i {
+            font-size: 2.2rem;
+        }
+        .modal-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .modal-content p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #475569;
+            text-align: left;
+        }
+        .modal-content p strong {
+            color: #0f172a;
+        }
+        .modal-content a {
+            display: inline-block;
+            margin-top: 15px;
+            color: white;
+            background: #1e3a8a;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Page 1: Cover -->
+        <div id="page1" class="page cover-page active">
+            <h1 class="title">Refúgio do Imperador</h1>
+            <button class="btn-start" onclick="showPage(2)">Acessar Guia</button>
+        </div>
+
+        <!-- Page 2: Guide -->
+        <div id="page2" class="page guide-page hidden-right">
+            <div class="content-wrapper">
+                <div class="header">
+                    <h2>GUIA DE<br>BOAS-VINDAS</h2>
+                    <p>Fique, Explore e Aproveite</p>
+                </div>
+                
+                <div class="grid" id="grid-container">
+                    <!-- Grid items will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="modal" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div class="modal-icon"><i id="modal-icon-class" class=""></i></div>
+                <h3 id="modal-title">Título</h3>
+                <p id="modal-text">Texto...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const guideData = [
+            {
+                id: 'bem-vindo',
+                title: 'Bem-Vindo',
+                icon: 'fa-solid fa-house',
+                text: 'Seja muito bem-vindo ao <strong>Refúgio do Imperador</strong>!<br><br>Preparamos este espaço com muito carinho para que você tenha uma estadia inesquecível. Sinta-se em casa, relaxe e aproveite cada momento conosco!'
+            },
+            {
+                id: 'checkin',
+                title: 'Check-in',
+                icon: 'fa-solid fa-key',
+                text: 'O nosso horário padrão de check-in está disponível entre <strong>12h e 14h</strong>.<br><br>Caso precise de alguma flexibilidade, por favor, entre em contato conosco com antecedência para verificarmos a disponibilidade.'
+            },
+            {
+                id: 'localizacao',
+                title: 'Localização',
+                icon: 'fa-solid fa-location-dot',
+                text: 'Estamos localizados na:<br><strong>Estrada do Imperador, 230, Casa 2</strong><br>Parque Silvestre, Guapimirim - RJ.<br><br><a href="https://maps.google.com/?q=Estrada+do+Imperador,+230,+Guapimirim" target="_blank">Abrir no Google Maps</a>'
+            },
+            {
+                id: 'wifi',
+                title: 'Wi-Fi',
+                icon: 'fa-solid fa-wifi',
+                text: 'Mantenha-se conectado durante sua estadia!<br><br><strong>Rede:</strong> Guapi<br><strong>Senha:</strong> Rvr23002!'
+            },
+            {
+                id: 'checkout',
+                title: 'Checkout',
+                icon: 'fa-solid fa-door-open',
+                text: 'O horário de checkout é <strong>até as 12h</strong>.<br><br>Esperamos que tenha tido uma experiência maravilhosa em nosso refúgio. Faça uma viagem segura e volte sempre!'
+            },
+            {
+                id: 'atividades',
+                title: 'Atividades',
+                icon: 'fa-solid fa-person-swimming',
+                text: 'A diversão é garantida em nosso refúgio!<br><br>• Cachoeira a apenas 100m da casa<br>• Piscina e hidromassagem para relaxar<br>• Campo de futebol (com opção de rede de vôlei)<br>• Parquinho para crianças de até 10 anos<br>• Lago com peixes<br>• Fliperama nostálgico'
+            },
+            {
+                id: 'mercados',
+                title: 'Mercados',
+                icon: 'fa-solid fa-cart-shopping',
+                text: 'Para suas compras, basta pegar o carro e seguir em direção ao centro de Guapimirim.<br><br>Ao entrar no pórtico da cidade, você encontrará excelentes opções como os mercados <strong>Rio Sul</strong> e <strong>Terê</strong>, localizados a apenas 10 minutos de distância da casa.'
+            },
+            {
+                id: 'regras',
+                title: 'Regras da Casa',
+                icon: 'fa-solid fa-clipboard-list',
+                text: 'Para mantermos a harmonia do espaço:<br><br>• A capacidade máxima é de <strong>14 hóspedes</strong>.<br>• Caso o limite seja ultrapassado, será cobrada uma taxa extra por hóspede adicional.<br>• Pedimos a gentileza de zelar pelo espaço como se fosse seu.'
+            },
+            {
+                id: 'informacoes',
+                title: 'Informações',
+                icon: 'fa-solid fa-circle-info',
+                text: '<strong>Estrutura:</strong> 14 hóspedes | 5 quartos (c/ ar-condicionado) | 12 camas | 4 banheiros (3 suítes e 1 social).<br><br><strong>Atenção:</strong> Não fornecemos roupa de cama.<br><br>Sítio localizado perto da Mata Atlântica, a 20 min da Feirinha de Teresópolis e do Parnaso. Conta com mesa rústica, churrasqueira, campo de futebol, parquinho e garagem privativa.'
+            }
+        ];
+
+        // Render Grid
+        const gridContainer = document.getElementById('grid-container');
+        guideData.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'grid-item';
+            div.onclick = () => openModal(item.id);
+            div.innerHTML = `
+                <div class="icon-circle">
+                    <i class="${item.icon}"></i>
+                </div>
+                <span>${item.title}</span>
+            `;
+            gridContainer.appendChild(div);
+        });
+
+        // Navigation Logic
+        function showPage(pageNum) {
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            
+            if (pageNum === 2) {
+                p1.classList.remove('active');
+                p1.classList.add('hidden-left');
+                p2.classList.remove('hidden-right');
+                p2.classList.add('active');
+            }
+        }
+
+        // Modal Logic
+        function openModal(id) {
+            const data = guideData.find(item => item.id === id);
+            if (!data) return;
+
+            document.getElementById('modal-icon-class').className = data.icon;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-text').innerHTML = data.text;
+            
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== document.getElementById('modal') && event.target.className !== 'close-btn') {
+                return;
+            }
+            document.getElementById('modal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
