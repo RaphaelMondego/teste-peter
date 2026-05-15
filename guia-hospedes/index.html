@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
             font-family: 'Montserrat', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+
         body {
             background-color: #e2e8f0;
             display: flex;
@@ -23,6 +25,7 @@
             align-items: center;
             min-height: 100vh;
         }
+
         .app-container {
             width: 100%;
             max-width: 414px;
@@ -31,8 +34,9 @@
             background: white;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
+
         @media (min-height: 850px) and (min-width: 450px) {
             .app-container {
                 height: 850px;
@@ -40,6 +44,7 @@
                 border: 8px solid #1e293b;
             }
         }
+
         .page {
             position: absolute;
             top: 0;
@@ -52,15 +57,18 @@
             display: flex;
             flex-direction: column;
         }
+
         .page.active {
             opacity: 1;
             pointer-events: auto;
             transform: translateX(0);
         }
+
         .page.hidden-left {
             transform: translateX(-100%);
             opacity: 0;
         }
+
         .page.hidden-right {
             transform: translateX(100%);
             opacity: 0;
@@ -74,6 +82,7 @@
             text-align: center;
             padding: 40px;
         }
+
         .cover-page h1 {
             font-size: 2.8rem;
             color: #000000;
@@ -82,6 +91,7 @@
             line-height: 1.1;
             letter-spacing: -1px;
         }
+
         .btn-start {
             padding: 16px 40px;
             font-size: 1.1rem;
@@ -94,7 +104,9 @@
             box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
             transition: transform 0.2s, background 0.2s;
         }
-        .btn-start:hover, .btn-start:active {
+
+        .btn-start:hover,
+        .btn-start:active {
             background: #1e293b;
             transform: scale(0.98);
         }
@@ -105,14 +117,19 @@
             color: white;
             padding: 50px 25px;
         }
+
         /* Background pattern/overlay */
         .guide-page::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 60%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
             z-index: 0;
         }
+
         .content-wrapper {
             position: relative;
             z-index: 1;
@@ -120,23 +137,27 @@
             display: flex;
             flex-direction: column;
         }
+
         .header {
             text-align: left;
             margin-bottom: 50px;
             margin-top: 20px;
         }
+
         .header h2 {
             font-size: 2.4rem;
             font-weight: 800;
             margin-bottom: 8px;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
+
         .header p {
             font-size: 1.1rem;
             font-weight: 400;
             color: #94a3b8;
         }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -144,6 +165,7 @@
             margin-top: auto;
             margin-bottom: auto;
         }
+
         .grid-item {
             display: flex;
             flex-direction: column;
@@ -152,9 +174,11 @@
             transition: transform 0.2s;
             text-align: center;
         }
+
         .grid-item:active {
             transform: scale(0.92);
         }
+
         .icon-circle {
             width: 65px;
             height: 65px;
@@ -166,12 +190,14 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+
         .icon-circle i {
             font-size: 1.6rem;
             color: #ffffff;
         }
+
         .grid-item span {
             font-size: 0.75rem;
             font-weight: 500;
@@ -183,7 +209,10 @@
         /* Modal */
         .modal {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(8px);
             display: flex;
@@ -195,10 +224,12 @@
             z-index: 10;
             padding: 20px;
         }
+
         .modal.active {
             opacity: 1;
             pointer-events: auto;
         }
+
         .modal-content {
             background: white;
             width: 100%;
@@ -211,11 +242,13 @@
             transform: translateY(30px) scale(0.95);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #1e293b;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
+
         .modal.active .modal-content {
             transform: translateY(0) scale(1);
         }
+
         .close-btn {
             position: absolute;
             top: 15px;
@@ -226,9 +259,11 @@
             line-height: 1;
             transition: color 0.2s;
         }
+
         .close-btn:hover {
             color: #0f172a;
         }
+
         .modal-icon {
             width: 80px;
             height: 80px;
@@ -240,24 +275,29 @@
             margin: 0 auto 20px;
             color: #1e3a8a;
         }
+
         .modal-icon i {
             font-size: 2.2rem;
         }
+
         .modal-content h3 {
             font-size: 1.6rem;
             margin-bottom: 15px;
             font-weight: 800;
             color: #0f172a;
         }
+
         .modal-content p {
             font-size: 1.05rem;
             line-height: 1.6;
             color: #475569;
             text-align: left;
         }
+
         .modal-content p strong {
             color: #0f172a;
         }
+
         .modal-content a {
             display: inline-block;
             margin-top: 15px;
@@ -272,6 +312,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="app-container">
         <!-- Page 1: Cover -->
@@ -287,7 +328,7 @@
                     <h2>GUIA DE<br>BOAS-VINDAS</h2>
                     <p>Fique, Explore e Aproveite</p>
                 </div>
-                
+
                 <div class="grid" id="grid-container">
                     <!-- Grid items will be injected here via JS -->
                 </div>
@@ -304,7 +345,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         const guideData = [
             {
@@ -329,7 +370,7 @@
                 id: 'wifi',
                 title: 'Wi-Fi',
                 icon: 'fa-solid fa-wifi',
-                text: 'Mantenha-se conectado durante sua estadia!<br><br><strong>Rede:</strong> Guapi<br><strong>Senha:</strong> Rvr23002!'
+                text: 'Mantenha-se conectado durante sua estadia!<br><br><strong>Rede:</strong> Guapi<br><strong>Senha:</strong> Rvr23002!<br><br>Faça fotos e nos marque no nosso instagram: <strong>@refugio_do_imperador</strong>'
             },
             {
                 id: 'checkout',
@@ -341,25 +382,25 @@
                 id: 'atividades',
                 title: 'Atividades',
                 icon: 'fa-solid fa-person-swimming',
-                text: 'A diversão é garantida em nosso refúgio!<br><br>• Cachoeira a apenas 100m da casa<br>• Piscina e hidromassagem para relaxar<br>• Campo de futebol (com opção de rede de vôlei)<br>• Parquinho para crianças de até 10 anos<br>• Lago com peixes<br>• Fliperama nostálgico'
+                text: 'A diversão é garantida em nosso refúgio!<br><br>• Cachoeira a apenas 100m da casa<br>• Piscina e hidromassagem para relaxar<br>• Campo de futebol (com opção de rede de vôlei)<br>• Parquinho para crianças de até 10 anos<br>• Lago com peixes<br>• Fliperama nostálgico<br>• Sinuca, Totó, Frescobol, Bingo, Dominó e Uno'
             },
             {
                 id: 'mercados',
                 title: 'Mercados',
                 icon: 'fa-solid fa-cart-shopping',
-                text: 'Para suas compras, basta pegar o carro e seguir em direção ao centro de Guapimirim.<br><br>Ao entrar no pórtico da cidade, você encontrará excelentes opções como os mercados <strong>Rio Sul</strong> e <strong>Terê</strong>, localizados a apenas 10 minutos de distância da casa.'
+                text: '<strong>Rede Economia</strong><br>Av. Dedo de Deus, 1500 - Guapimirim, RJ, 25940-000<br>Horário de funcionamento: Abre 7:30h · Fecha 21:00<br><br><strong>Rio Sul</strong><br>Av. Dedo de Deus, 347 - Centro, Guapimirim - RJ, 25946-244<br>Horário de funcionamento: Abre as 7:30h · Fecha 21:00<br><br><strong>Super Tere Frutas</strong><br>Av. Dedo de Deus, 161 - Centro, Guapimirim - RJ, 25946-244<br>Horário de funcionamento: Abre as 7:30h · Fecha 21:00<br><br><strong>*Além dos mercados, temos várias opções de Sacolão</strong>'
             },
             {
                 id: 'regras',
                 title: 'Regras da Casa',
                 icon: 'fa-solid fa-clipboard-list',
-                text: 'Para mantermos a harmonia do espaço:<br><br>• A capacidade máxima é de <strong>14 hóspedes</strong>.<br>• Caso o limite seja ultrapassado, será cobrada uma taxa extra por hóspede adicional.<br>• Pedimos a gentileza de zelar pelo espaço como se fosse seu.'
+                text: 'Para mantermos a harmonia do espaço:<br><br>• A capacidade máxima é de <strong>14 hóspedes</strong>.<br>• Caso o limite seja ultrapassado, será cobrada uma taxa extra por hóspede adicional.<br>• Pedimos a gentileza de zelar pelo espaço como se fosse seu.<br><br><strong>• Proibido receber convidados / Pets / Festas com Som Alto</strong>'
             },
             {
                 id: 'informacoes',
                 title: 'Informações',
                 icon: 'fa-solid fa-circle-info',
-                text: '<strong>Estrutura:</strong> 14 hóspedes | 5 quartos (c/ ar-condicionado) | 12 camas | 4 banheiros (3 suítes e 1 social).<br><br><strong>Atenção:</strong> Não fornecemos roupa de cama.<br><br>Sítio localizado perto da Mata Atlântica, a 20 min da Feirinha de Teresópolis e do Parnaso. Conta com mesa rústica, churrasqueira, campo de futebol, parquinho e garagem privativa.'
+                text: '<strong>Estrutura:</strong> 14 hóspedes | 5 quartos (c/ ar-condicionado) | 12 camas | 4 banheiros (3 suítes e 1 social).<br><br><strong>Atenção:</strong> Não fornecemos roupa de cama.<br><br>Sítio localizado perto da Mata Atlântica, a 20 min da Feirinha de Teresópolis e do Parnaso. Conta com mesa rústica, churrasqueira, campo de futebol, parquinho e garagem privativa.<br><br><strong>Outras Informações:</strong><br>• Para ligar o varal de Luzes da área da piscina, tem uma tomada embaixo do telhado encostado ao muro verde da Rua.<br>• Para ligar o refletor da Piscina temos uma tomada em frente a churrasqueira.<br>• O Campo de futebol – Disjuntor na entrada do campo para as luzes noturnas caso queiram usar a noite.<br>• O SPA – tem orientação colada nela de como ligar (Em dias chuvosos, favor não usar).<br>• O varal de luzes da lareira acendem sozinhos.'
             }
         ];
 
@@ -382,7 +423,7 @@
         function showPage(pageNum) {
             const p1 = document.getElementById('page1');
             const p2 = document.getElementById('page2');
-            
+
             if (pageNum === 2) {
                 p1.classList.remove('active');
                 p1.classList.add('hidden-left');
@@ -399,7 +440,7 @@
             document.getElementById('modal-icon-class').className = data.icon;
             document.getElementById('modal-title').innerText = data.title;
             document.getElementById('modal-text').innerHTML = data.text;
-            
+
             document.getElementById('modal').classList.add('active');
         }
 
@@ -411,4 +452,5 @@
         }
     </script>
 </body>
+
 </html>
